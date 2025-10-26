@@ -131,6 +131,6 @@ df2 = pd.DataFrame({"x": x2, "y": y2, "y_hat": res2["y_hat"], "resid": res2["res
 df1.to_csv("data/ex1_ket_qua.csv", index=False)
 df2.to_csv("data/ex2_ket_qua.csv", index=False)
 
-print("Đã lưu hình và CSV vào /mnt/data/:")
-print(" - ex1_hoi_quy_don_bien.png, ex1_ket_qua.csv")
-print(" - ex2_hoi_quy_don_bien.png, ex2_ket_qua.csv")
+# print("Đã lưu hình và CSV vào /mnt/data/:")
+# print(" - ex1_hoi_quy_don_bien.png, ex1_ket_qua.csv")
+# print(" - ex2_hoi_quy_don_bien.png, ex2_ket_qua.csv")
