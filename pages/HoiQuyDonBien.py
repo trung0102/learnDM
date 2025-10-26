@@ -76,3 +76,24 @@ def save_scatter_with_line(outpath, title, x, y, b0, b1):
     plt.savefig(outpath, bbox_inches="tight", dpi=150)
     st.pyplot(plt)
     plt.close()
+
+# =============================
+# BÀI TẬP 1 – Điểm thi & thời gian học
+# =============================
+x1 = [1, 2, 3, 4, 5, 6, 7, 8]               # số giờ học
+y1 = [52, 55, 60, 63, 67, 72, 74, 78]       # điểm thi
+
+res1 = simple_linreg(x1, y1)
+print_summary("Bài tập 1 – Điểm thi & thời gian học", x1, y1, res1)
+
+# Ví dụ dự báo tại x = 6.5
+x_new_1 = 6.5
+y_pred_1 = res1["b0"] + res1["b1"] * x_new_1
+print(f"Dự báo điểm thi tại x = {x_new_1}: ŷ = {y_pred_1:.4f}\n")
+
+# Vẽ hình và lưu
+save_scatter_with_line(
+    outpath="/mnt/data/ex1_hoi_quy_don_bien.png",
+    title="Bài 1: Điểm thi & thời gian học (hồi quy tuyến tính)",
+    x=x1, y=y1, b0=res1["b0"], b1=res1["b1"]
+)
