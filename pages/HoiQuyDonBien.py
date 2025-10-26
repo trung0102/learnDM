@@ -97,3 +97,28 @@ save_scatter_with_line(
     title="Bài 1: Điểm thi & thời gian học (hồi quy tuyến tính)",
     x=x1, y=y1, b0=res1["b0"], b1=res1["b1"]
 )
+
+# =============================
+# BÀI TẬP 2 – Quảng cáo & doanh số
+# =============================
+x2 = [2, 3, 4, 5, 6, 8, 10, 12]             # quảng cáo (nghìn USD)
+y2 = [14, 16, 21, 23, 26, 30, 34, 38]       # doanh số (nghìn sp)
+
+res2 = simple_linreg(x2, y2)
+print_summary("Bài tập 2 – Quảng cáo & doanh số", x2, y2, res2)
+
+# Kiểm định ý nghĩa b1 (t = b1 / se(b1))
+t_b1 = res2["b1"] / res2["se_b1"]
+print(f"Kiểm định H0: b1 = 0 -> t = {t_b1:.4f} với df = {res2['df']} (mức ý nghĩa 5% tham chiếu t_{{0.975, df}})")
+
+# Dự báo tại x = 9 (nghìn USD)
+x_new_2 = 9
+y_pred_2 = res2["b0"] + res2["b1"] * x_new_2
+print(f"Dự báo doanh số tại x = {x_new_2}: ŷ = {y_pred_2:.4f} (nghìn sp)\n")
+
+# Vẽ hình và lưu
+save_scatter_with_line(
+    outpath="/mnt/data/ex2_hoi_quy_don_bien.png",
+    title="Bài 2: Quảng cáo & doanh số (hồi quy tuyến tính)",
+    x=x2, y=y2, b0=res2["b0"], b1=res2["b1"]
+)
