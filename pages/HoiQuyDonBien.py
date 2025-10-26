@@ -122,3 +122,15 @@ save_scatter_with_line(
     title="Bài 2: Quảng cáo & doanh số (hồi quy tuyến tính)",
     x=x2, y=y2, b0=res2["b0"], b1=res2["b1"]
 )
+
+# =============================
+# LƯU BẢNG KẾT QUẢ RA CSV (tùy chọn)
+# =============================
+df1 = pd.DataFrame({"x": x1, "y": y1, "y_hat": res1["y_hat"], "resid": res1["resid"]})
+df2 = pd.DataFrame({"x": x2, "y": y2, "y_hat": res2["y_hat"], "resid": res2["resid"]})
+df1.to_csv("data/ex1_ket_qua.csv", index=False)
+df2.to_csv("data/ex2_ket_qua.csv", index=False)
+
+print("Đã lưu hình và CSV vào /mnt/data/:")
+print(" - ex1_hoi_quy_don_bien.png, ex1_ket_qua.csv")
+print(" - ex2_hoi_quy_don_bien.png, ex2_ket_qua.csv")
