@@ -9,3 +9,4 @@
 
 - Tinh trung binh
 - Regression
+- Multivariate Regression
