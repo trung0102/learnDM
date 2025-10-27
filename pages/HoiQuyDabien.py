@@ -57,3 +57,59 @@ ax.set_zlabel("Y (Doanh thu)")
 ax.set_title("Hồi quy đa biến: mặt phẳng fitted")
 ax.legend()
 fig1.savefig(outdir / "multivar_reg_plane_3d.png", bbox_inches="tight", dpi=150)
+
+# (2) Projection: Y vs X1 (giữ X2 = mean)
+fig2 = plt.figure()
+x2_mean = X2.mean()
+x1_line = np.linspace(X1.min(), X1.max(), 100)
+y_line1 = b0 + b1*x1_line + b2*x2_mean
+plt.scatter(X1, Y, label="Dữ liệu (X2 thay đổi)")
+plt.plot(x1_line, y_line1, label=f"X2 cố định = {x2_mean:.2f}")
+plt.xlabel("X1 (Quảng cáo)")
+plt.ylabel("Y (Doanh thu)")
+plt.title("Dự báo Y theo X1 (X2 cố định tại mean)")
+plt.legend()
+fig2.savefig(outdir / "multivar_reg_y_vs_x1.png", bbox_inches="tight", dpi=150)
+
+# (3) Projection: Y vs X2 (giữ X1 = mean)
+fig3 = plt.figure()
+x1_mean = X1.mean()
+x2_line = np.linspace(X2.min(), X2.max(), 100)
+y_line2 = b0 + b1*x1_mean + b2*x2_line
+plt.scatter(X2, Y, label="Dữ liệu (X1 thay đổi)")
+plt.plot(x2_line, y_line2, label=f"X1 cố định = {x1_mean:.2f}")
+plt.xlabel("X2 (Nhân viên)")
+plt.ylabel("Y (Doanh thu)")
+plt.title("Dự báo Y theo X2 (X1 cố định tại mean)")
+plt.legend()
+fig3.savefig(outdir / "multivar_reg_y_vs_x2.png", bbox_inches="tight", dpi=150)
+
+print("Đã lưu hình:")
+print(" - multivar_reg_plane_3d.png")
+print(" - multivar_reg_y_vs_x1.png")
+print(" - multivar_reg_y_vs_x2.png")
+
+
+# -----------------------------
+# VẼ HISTOGRAM
+# -----------------------------
+Y_hat = b0 + b1*X1 + b2*X2
+resid = Y - Y_hat
+
+# Histogram Y thực tế và Y dự báo
+plt.figure()
+plt.hist(Y, bins=5, alpha=0.5, label="Y thực tế")
+plt.hist(Y_hat, bins=5, alpha=0.5, label="Y dự báo")
+plt.xlabel("Giá trị")
+plt.ylabel("Tần suất")
+plt.title("Histogram Y thực tế và Y dự báo")
+plt.legend()
+plt.show()
+
+# Histogram phần dư
+plt.figure()
+plt.hist(resid, bins=5, alpha=0.7, edgecolor='black')
+plt.xlabel("Giá trị phần dư")
+plt.ylabel("Tần suất")
+plt.title("Histogram phần dư (Residuals)")
+plt.show()
