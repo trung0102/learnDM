@@ -26,3 +26,34 @@ print("\nX^T Y =\n", XtY)
 print("\n(X^T X)^(-1) =\n", XtX_inv)
 print("\nb = (X^T X)^(-1) X^T Y =\n", b)
 print(f"\nPhương trình: Ŷ = {b0:.4f} + {b1:.4f}*X1 + {b2:.4f}*X2")
+
+# Dự báo tại (X1=25, X2=9) để khớp với file
+x_new = np.array([1.0, 25.0, 9.0])
+y_hat_new = float(x_new @ b)
+print(f"Dự báo tại (X1=25, X2=9): Ŷ = {y_hat_new:.4f}")
+
+# -----------------------------
+# VẼ HÌNH
+# Lưu ý yêu cầu: mỗi chart 1 figure, không set màu cụ thể.
+# -----------------------------
+outdir = Path("/mnt/data")
+outdir.mkdir(parents=True, exist_ok=True)
+
+# (1) 3D scatter + fitted plane
+fig1 = plt.figure()
+ax = fig1.add_subplot(111, projection='3d')
+ax.scatter(X1, X2, Y, label="Dữ liệu")
+
+# Tạo lưới để vẽ mặt phẳng
+x1g = np.linspace(X1.min(), X1.max(), 20)
+x2g = np.linspace(X2.min(), X2.max(), 20)
+X1g, X2g = np.meshgrid(x1g, x2g)
+Yg = b0 + b1*X1g + b2*X2g
+
+ax.plot_surface(X1g, X2g, Yg, alpha=0.3)
+ax.set_xlabel("X1 (Quảng cáo)")
+ax.set_ylabel("X2 (Nhân viên)")
+ax.set_zlabel("Y (Doanh thu)")
+ax.set_title("Hồi quy đa biến: mặt phẳng fitted")
+ax.legend()
+fig1.savefig(outdir / "multivar_reg_plane_3d.png", bbox_inches="tight", dpi=150)
